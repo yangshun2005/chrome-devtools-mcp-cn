@@ -1,0 +1,53 @@
+name: Memory leak tests
+
+permissions:
+  contents: read
+
+on:
+  merge_group:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  memory-leak-test:
+    name: 'Check for memory leaks'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          cache: npm
+          node-version: 22
+
+      - name: Install and sync dependencies
+        shell: bash
+        run: npm run sync
+        env:
+          PUPPETEER_SKIP_DOWNLOAD: true
+
+      - name: Install browser
+        shell: bash
+        run: npx puppeteer browsers install chrome
+
+      - name: Build
+        run: npm run build:release
+
+      - name: Disable AppArmor
+        shell: bash
+        run: echo 0 | sudo tee /proc/sys/kernel/apparmor_restrict_unprivileged_userns
+
+      - name: Run memory leak tests
+        shell: bash
+        run: npm run profile -- --threshold-percentage=1
+
+      - name: Check idle memory footprint
+        shell: bash
+        run: npm run profile:footprint

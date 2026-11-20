@@ -1,0 +1,51 @@
+{
+  "compilerOptions": {
+    "module": "esnext",
+    "target": "es2023",
+    "lib": [
+      "ES2023",
+      "DOM",
+      "ES2024.Promise",
+      "ESNext.Disposable",
+      "ESNext.Iterator",
+      "ESNext.Collection"
+    ],
+    "typeRoots": ["./node_modules/@types"],
+    "types": ["node"],
+    "moduleResolution": "bundler",
+    "outDir": "./out/Default/gen",
+    "rootDir": ".",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "noImplicitOverride": true,
+    "noFallthroughCasesInSwitch": true,
+    "incremental": true,
+    "sourceMap": true,
+    "preserveConstEnums": true,
+    "useUnknownInCatchVariables": false,
+    "declaration": true,
+    "isolatedDeclarations": true,
+    "disableSourceOfProjectReferenceRedirect": true
+  },
+  "include": [
+    "src/**/*.ts",
+    "tests/**/*.ts",
+    "third_party/devtools-frontend/front_end/legacy/legacy-defs.d.ts"
+  ],
+  "references": [
+    {
+      "path": "./out/Default/gen/third_party/devtools-frontend/front_end/core/root/bundle-tsconfig.ref.json"
+    },
+    {
+      "path": "./out/Default/gen/third_party/devtools-frontend/mcp/mcp-tsconfig.ref.json"
+    },
+    {
+      "path": "./out/Default/gen/third_party/devtools-frontend/front_end/entrypoints/formatter_worker/worker_entrypoint-tsconfig.ref.json"
+    },
+    {
+      "path": "./out/Default/gen/third_party/devtools-frontend/front_end/entrypoints/heap_snapshot_worker/worker_entrypoint-tsconfig.ref.json"
+    }
+  ]
+}
